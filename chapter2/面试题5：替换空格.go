@@ -14,12 +14,14 @@ import (
 3.golang字符串的特性，不能修改，定长，只能使用[]byte或rune来修改后强转
 */
 func main() {
+	//替换空格题目
 	//testStr := "We are happy"
 	//testStr = strings.ReplaceAll(testStr, " ", "%20") //1使用写好的函数
 	//println(testStr)
 	//testStr2 := replaceStr(testStr, " ", "%20") //2使用自己重写一遍的函数，思路和源码还有剑指offer上的一样
 	//println(testStr2)
 
+	//相关题目
 	arrayA1 := []int{1, 4, 8, 10, 15}
 	arrayA2 := []int{2, 5, 7, 9, 13}
 	arrayA3 := appendArray(arrayA1, arrayA2)
@@ -83,9 +85,6 @@ func appendArray(arrayA1 []int, arrayA2 []int) []int {
 	if cap(arrayA1) < len(arrayA1)+len(arrayA2) {
 		arrayA1 = append(arrayA1, arrayA2...)
 	}
-	//for i:= 0;i< len(arrayA2);i++{
-	//	arrayA1= append(arrayA1, 0)
-	//}
 	for i := len(arrayA2) - 1; i >= 0; i-- {
 
 		_ = copy(arrayA1[a1Index+1:], arrayA1[a1Index:]) //将内容整体复制到后一位
