@@ -45,6 +45,43 @@ func changeOrder(data []int) {
 func main() {
 	testSlice := []int{1, 2, 3, 4, 5}
 	fmt.Printf("before order:%v", testSlice)
-	changeOrder(testSlice)
+	changeOrder2(testSlice)
 	fmt.Printf("after order:%v", testSlice)
+}
+
+/*
+可扩展性优化，解耦，将操作分成两步，第一步判断是否满足标准，第二步交换
+下面的写法是推荐的写法，但是我感觉这里left<right的判断太多了，我上面写的全if逻辑复杂了，而且for的次数会比下面的多。
+*/
+
+func changeOrder2(data []int) {
+
+	left := 0
+	right := len(data) - 1
+
+	for left < right {
+
+		for left < right && !isEven(data[left]) {
+			//奇数
+			left++
+		}
+		for left < right && isEven(data[right]) {
+			//偶数
+			right--
+		}
+
+		if left < right {
+			//left 是偶数，right是奇数,交换
+			tmp := data[left]
+			data[left] = data[right]
+			data[right] = tmp
+		}
+
+	}
+
+}
+
+func isEven(data int) bool {
+	//偶数返回true
+	return data&1 == 0
 }
