@@ -10,7 +10,7 @@ import "fmt"
 之前已经整理过链表反转,画了张图，比较简单易懂，地址：https://blog.csdn.net/qq_26372385/article/details/103567221
 */
 
-type ListNode3 struct {
+type ListNode4 struct {
 	mnValue int
 	mpNext  *ListNode3
 }
