@@ -14,23 +14,23 @@ import "fmt"
 /*
 遍历入栈切片，如果不相等就退出
 */
-func validateStackSequences(pushed []int, popped []int) bool {
-
-	//异常数据返回
-	if len(pushed) != len(popped) || len(pushed) == 0 || len(popped) == 0 {
-		return false
-	}
-
-	pushLen := len(pushed)
-
-	for _, value := range pushed {
-		if value != popped[pushLen-1] {
-			return false
-		}
-		pushLen--
-	}
-	return true
-}
+//func validateStackSequences(pushed []int, popped []int) bool {
+//
+//	//异常数据返回
+//	if len(pushed) != len(popped) || len(pushed) == 0 || len(popped) == 0 {
+//		return false
+//	}
+//
+//	pushLen := len(pushed)
+//
+//	for _, value := range pushed {
+//		if value != popped[pushLen-1] {
+//			return false
+//		}
+//		pushLen--
+//	}
+//	return true
+//}
 
 func main() {
 	pushSlice := []int{1, 2, 3, 4, 5}
