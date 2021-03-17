@@ -79,4 +79,28 @@ func (o *Once) Do(f func()) {
     }
 }
 
+type Once struct {
+	done uint32 // 初始值为0表示还未执行过，1表示已经执行过
+	m    Mutex  //互斥锁，防止数据竞态
+}
+
+
+func (o *Once) Do(f func()) {
+	//原子读取done，判断是否已经执行过
+	if atomic.LoadUint32(&o.done) == 0 {
+		o.doSlow(f)
+	}
+}
+
+func (o *Once) doSlow(f func()) {
+	//互斥锁，锁住这段代码，防止并发资源竞争
+	o.m.Lock()
+	defer o.m.Unlock()
+	//这里不需要原子操作，因为，上面已经是锁住的资源，保证同一时间，只有一个协程能调用这块代码
+	if o.done == 0 {
+		//调用匿名函数后将done原子操作加1，
+		defer atomic.StoreUint32(&o.done, 1)
+		f()
+	}
+}
 */
