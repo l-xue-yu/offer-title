@@ -19,7 +19,8 @@ type TreeNode struct {
 
 /*
 知识点：
-先序遍历
+1.二叉树先序遍历
+2.怎样设计递归函数，比如本题中如何将路径中无效的点删除。什么时候返回。什么时候开始递归
 */
 
 func FindPath(tree *TreeNode, expectedSum int, path []int) {
@@ -45,16 +46,10 @@ func findPath(tree *TreeNode, expectedSum int, path []int, currentSum int) {
 	//println("当前 sum:",currentSum)
 
 	//是叶子节点
-	if tree.Left == nil && tree.Left == tree.Right {
-		if currentSum == expectedSum { //且累计值正好是输入值
-			for _, value := range path {
-				fmt.Print(value, " ")
-			}
-
-		} else {
-			currentSum -= tree.Val
-			path = path[:len(path)-1]
-			return
+	if tree.Left == nil && tree.Left == tree.Right && currentSum == expectedSum {
+		//且累计值正好是输入值
+		for _, value := range path {
+			fmt.Print(value, " ")
 		}
 
 	}
@@ -62,7 +57,10 @@ func findPath(tree *TreeNode, expectedSum int, path []int, currentSum int) {
 	//不是叶子节点，继续递归遍历
 	findPath(tree.Left, expectedSum, path, currentSum)
 	findPath(tree.Right, expectedSum, path, currentSum)
-
+	//已经找到一个路径，将该路径上的节点一个，一个删除
+	//两种情况会删除末尾点，1.找到一个符合条件的路径，在递归函数栈中将栈头的函数一个一个结束的时候删除函数中的点。2.是叶子节点，也走到了栈顶，需要结束函数栈，将栈顶函数结束，删除栈顶函数的点。
+	currentSum -= tree.Val
+	path = path[:len(path)-1]
 }
 
 func main() {
